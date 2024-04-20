@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+
+<style>
+  body{
+      background-color: #00002B;
+      color: white;
+      font-family: verdana;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      margin: 0;
+    }
+
+    h2{
+      color: orangered;
+    }
+
+    header{
+      background-color: black;
+      display: flex;
+      width: 100%;
+      margin: 0;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 5px 50px rgba(255, 255, 255, 0.1);
+    }
+
+    header a{
+      margin-left: 20px;
+      text-decoration: none;
+    }
+
+    .buttondiv{
+      text-align: center;
+    }
+
+    .button{
+      background-color: orangered;
+      color: black;
+      width: 100px;
+      height: 35px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+    }
+
+    #second-part{
+      padding: 20px;
+      max-width: 100%;
+    }
+
+    h3{
+      position: relative;
+      text-align: center;
+      margin-bottom:25px;
+    }
+    
+    form {
+      text-align: left;
+      width: 100%;
+      position: relative;
+      top: 20px;
+      margin-bottom: 60px;
+    }
+
+    form h2{
+      text-align: center;
+    }
+
+
+    form .buttondiv{
+      margin: 10px;
+    }
+    
+    form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    form input[type="text"],
+    form input[type="password"],
+    form input[type="file"],
+    form input[type="url"],
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+.overlay {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9998;
+}
+
+.buttondiv {
+  text-align: center;
+}
+
+#thankYouMessage{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  z-index: 9999;
+}
+
+</style>
+</head>
+
+<body>
+  <header> 
+      <a href="index.html"><h2>UCH</h2></a>
+  </header>
+
+  <div>
+    <form id="second-part" class="signup-part" action="/submit" method="post">
+    <h2>Add profile</h2>
+    <h3>Display Details</h3>
+    <label for="display_name">Display Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    
+    <label for="category">Category:</label><br>
+    <select id="category" name="category">
+      <option value="default">Select Here</option>
+      <option value="clubs">Clubs/ Societies</option>
+      <option value="vendor">Vendor</option>
+      <option value="UWI">UWI</option>
+      <option value="other">Other</option>
+    </select><br><br>
+    
+    <label for="link">Image URL:</label><br>
+    <input type="url" id="picture" name="picture"><br><br>
+    
+    <label for="link">Link:</label><br>
+    <input type="url" id="link" name="link"><br><br>
+    
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+    
+    <div class="buttondiv">
+      <input type="button" value="Cancel" onclick="goToHomepage()" class="button">
+      <input type="submit" value="Add" class="button">
+    </div>
+  </form>
+  </div>
+
+  <div id="thankYouMessage" style="display: none;">
+    <h3>Thank you for adding!</h3>
+    <button onclick="goToHomepage()" class="button">Close</button>
+  </div>
+
+<div id="overlay" class="overlay"></div>
+</body>
+
+<script>
+
+  function goToHomepage() {
+    window.location.href = "index.html";
+  }
+
+</script>
+
+<script type ="module">
+  import { writedata } from './sending.js';
+  const form = document.getElementById('second-part');
+const thankYouMessage = document.getElementById('thankYouMessage');
+
+form.addEventListener('submit', callbackFunction);
+
+async function callbackFunction(event) {
+  event.preventDefault();
+  const myFormData = new FormData(event.target);
+  let form = event.target;
+  let formData = new FormData(form);
+  const { name, category, picture, link, description } = Object.fromEntries(formData);
+  await writedata(name, category, picture, link, description);
+
+  // Display the thank you message and hide the form
+  form.style.display = 'none';
+  thankYouMessage.style.display = 'block';
+}
+
+function goToHomepage() {
+  window.location.href = "index.html";
+}
+
+</script>
+
+<script src="./auth.js"></script>
+
+</html>

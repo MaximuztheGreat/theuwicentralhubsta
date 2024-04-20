@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<style>
+  body{
+      background-color: #00002B;
+      color: white;
+      font-family: verdana;
+      height: 100%;
+      margin: 0;
+    }
+
+    h2{
+      color: orangered;
+    }
+
+    header{
+      background-color: black;
+      display: flex;
+      width: 100%;
+      margin: 0;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 5px 50px rgba(255, 255, 255, 0.1);
+    }
+
+    header a{
+      margin-left: 20px;
+      text-decoration: none;
+    }
+
+    .container {
+        margin-bottom: 40px;
+        border-radius: 5px;
+        text-align: center;
+        max-width: 100%;
+        max-height: 70%;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      }
+
+    .dashboardpics{
+      height: 250px;
+      width: 250px;
+      margin: 10px;
+      overflow: hidden;
+      background-color: white;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .description{
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    #dashboard-description{
+      max-width: 80%;
+      align-items: center;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    #dashboard-description h2{
+      text-align: center;
+    }
+
+    .edit-btn {
+        background-color: orangered;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        margin-right: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .edit-btn:hover {
+            color: white;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      width: 150px; /* Adjust width as needed */
+      margin-right: 10px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      flex: 1;
+      padding: 5px;
+      width: 200px;
+    }
+
+    #image-upload{
+      margin: 20px;
+    }
+
+</style>
+</head>
+
+<body>
+  <header> 
+      <a href="index.html"><h2>UCH</h2></a>
+  </header>
+
+<div class="container">
+  <div>
+    <h2>Dashboard</h2>
+  </div>
+    <div class="image-container">
+      <div class="qrpic">
+        <div class="dashboardpics">
+          <img src="https://legiit-service.s3.amazonaws.com/73f8891e6e95315ca9d3c3e6226c47a1/6173b646e3f627312285ce2cf48df413.png" alt="Placeholder Image" id="qr-image">
+        </div>
+      </div>
+
+        <div class="pfp">
+          <div class="dashboardpics">
+            <img src="https://sat02pap003files.storage.live.com/y4mNa0KPfoF0Nsy709lo9IIYPxMUZkXqW634a_q1zI47sZBDkjYyY_UrGyDIAdHCEhdk3Ob-UMZhBGnAaqLIfAPTFQmYrUy1oLmQpjVrQ23GNp4MMZ9NbxaLyFsj0kt4-J2zR-OnIkyuUB5B2EbLk3QvQ09pjHZhuIkgBG29en9NhiZc07FQh33t2QA5Qtblo3gxowqCoetxvuZdIfONb5GzMpp-m-Duz_uCHNQq6Kso2k?encodeFailures=1&width=539&height=809" alt="Placeholder Image" id="dashboard-image">          
+          </div>
+          <input type="file" id="image-upload" accept="image/*">
+        </div>
+        <br>
+    </div>
+
+    <div class="description" id="dashboard-description">
+      <h2>Display Name</h2>
+      <form id="editable-form">
+        <div class="form-group">
+          <label for="display-name">Display Name:</label>
+          <input type="text" id="display-name" name="display-name" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="link">Link:</label>
+          <input type="url" id="link" name="link">
+        </div>
+      </form>
+    </div>
+<button class="edit-btn" onclick="saveChanges()">Save</button>
+<button class="edit-btn" onclick="resetChanges()">Reset</button>
+</div>
+
+</body>
+
+<script>
+
+</script>
+</html>

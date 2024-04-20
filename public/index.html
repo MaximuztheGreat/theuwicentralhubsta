@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UWI Central Hub</title>
+  
+  <style>
+
+    h2{
+      font-family: verdana;
+      color: orangered;
+    }
+
+    p{
+      font-family: verdana;
+      color:white;
+    }
+
+    body{
+      background-color: #00002B;
+      margin: 0; /* Reset default margin */
+      padding: 0; /* Reset default padding */
+      color: white;
+      font-family: verdana;
+    }
+
+    header{
+      background-color: black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; /* Add padding for better spacing */
+      box-shadow: 0px 5px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    header h2{
+      margin-left: 20px;
+    }
+
+    header button {
+      margin-right: 20px;
+      background-color: orangered;
+      color: black;
+      font-family: verdana;
+      font-size: 16px;
+      width: 100px;
+      height: 30px;
+      border-radius: 7px;
+    }
+
+    #Welcome {
+      position: relative;
+      text-align: center;
+      max-width: 100vw;
+      max-height: 100vh;
+      overflow: hidden;
+    }
+
+    #wlcimg {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      text-align: center;
+      justify-content: center;
+    }
+
+    #wlcimg img{
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+
+    #wlcgradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, 
+          rgba(0, 0, 43, 1) 0%,
+          rgba(0, 7, 47, 0.8) 20%,
+          rgba(0, 13, 50, 0.4) 50%,
+          rgba(0, 20, 51, 0.2) 80%,
+          rgba(0, 26, 51, 0.1) 100%);
+        z-index: 0;
+    }
+
+    #wlctxt {
+      position: absolute;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      padding: 15px;
+
+      text-align: center;
+    }
+
+    #wlctxt h2{
+      font-size: 50px;
+      font-weight: bolder;
+      color: white;
+      padding:0;
+      margin: 0;
+    }
+
+
+    #wlctxt button{
+      background-color: orangered;
+      color: black;
+      font-family: verdana;
+      font-size: 16px;
+      width: 200px;
+      height: 40px;
+      border-radius: 7px;
+    }
+
+    .tilesdiv{
+      height: fit-content;
+    }
+
+    .tilesdiv .tiletag h3, .tilesdiv .tiletag p {
+      display: inline-block;
+      margin: 20px; /* Optionally, reset any default margins */
+    }
+
+    .tiletag {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .tiletag h3 {
+      margin: 10px;
+    }
+
+    .tiletag p{
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .SeeMore{
+      font-size: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .alltiles{
+    display: flex;
+    flex-wrap: wrap;
+    }
+
+    .tiles h3{
+      position: relative;
+      margin-left: 20px;
+    }
+
+      .tiles {
+        max-width: 250px;
+        height: 300px;
+        max-height: 300px;
+        margin: 0 15px 20px 15px;
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+        flex: 50%;
+      }
+
+      .tiles img {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .tilegradient{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top,
+        rgba(0, 0, 43, 0.8) 0%,
+        rgba(0, 7, 47, 0.7) 12%,
+        rgba(0, 13, 50, 0.5) 25%,
+        rgba(0, 20, 51, 0.2) 37%,
+        rgba(0, 26, 51, 0.1) 50%);
+        z-index: 0;
+      }
+
+      .tiletxt{
+        position: absolute;
+        bottom: 10px;
+        z-index: 1;
+        padding: 0;
+        margin: 0;
+      }
+
+      .popup {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: rgba(0, 0, 43, 0.9);
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0px 0px 30px 5px rgba(255, 255, 255, 0.2);
+          z-index: 9999;
+
+
+          width: 70%;
+          height: 70%;
+          text-align: center;
+          overflow: hidden;
+      }
+
+      .popup img{
+        object-fit: cover;
+      }
+
+      /* Style for the close button */
+      .close {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          cursor: pointer;
+          font-size: 30px;
+          color: orangered;
+      }
+
+      /* Style for the overlay */
+      .overlay {
+          display: none;
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background-color: rgba(0,0,0,0.5);
+          z-index: 9998;
+      }
+
+      @keyframes glow {
+        0% {
+              text-shadow: 0 0 10px orangered;
+          }
+        100% {
+              text-shadow: 0 0 20px orangered;
+          }
+      }
+
+
+      @media (max-width: 600px) {
+        .allrectiles {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between; /* Ensure equal spacing between tiles */
+        }
+
+        .tiles {
+          max-width: calc(50% - 10px); /* 10px accounts for the total horizontal margins (5px on each side) */
+          height: 250px;
+          max-height: 250px;
+          margin: 0 5px 20px 5px; /* Adjusted margin */
+          border-radius: 15px;
+          position: relative;
+          overflow: hidden;
+          flex: 0 0 calc(50% - 10px); /* Adjusted flex property */
+        }
+      }
+
+      footer{
+        background-color: black;
+        font-size: 16px;
+        text-align: center;
+        margin-top: 200px;
+        padding: 15px;
+      }
+      
+      footer a {
+        display: inline-block;
+        margin: 0 10px; /* Adjust margin as needed */
+        text-decoration: none;
+      }
+
+      footer p{
+        color: orangered;
+      }
+    </style>
+</head>
+
+<body>
+  <header> 
+    <h2>UCH</h2>
+    <div id="userbuttons">
+      <span id="user"></span>
+        <button id="logoutBtn">
+            Logout
+        </button>
+        <button id="loginBtn">
+          Login
+        </button>
+    </div>  
+  </header>
+
+  <div id="Welcome">
+    <div id="wlcimg">
+      <img src="UWIWall.jpg">
+      <div id="wlcgradient"></div>
+    </div>
+    <div id="wlctxt">
+      <p>Welcome to</p>
+      <h2>UWI Central HUB</h2>
+      <p> All Things UWI</p>
+      <button id="getStarted">Add Profile</button>
+      <a id="addProfile" href="signup.html"> <button>Add Profile</button> </a>
+    </div>
+  </div>
+
+  
+  <div class="tilesdiv">
+    <div class="tiletag">
+      <h3>Recommended</h3>
+      <p>See More</p>
+      <span class="SeeMore">&#8594;</span>
+
+    </div>
+
+    <div class="alltiles" id="recommended">
+
+      <div class="tiles" data-title="UCH" data-description="UCH is the one place where you can get information on all things UWI" onclick="openPopup(this)">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <img src="UWIWall.jpg">
+
+        <div class="tilegradient"></div>
+
+        <div class="tiletxt">
+          <h3>UCH</h3>
+        </div>
+
+      </div>
+
+    </div>
+   
+  </div>
+
+  <div class="tilesdiv">
+    <div class="tiletag">
+      <h3>Clubs / Societies</h3>
+      <p>See More</p>
+      <span class="SeeMore">&#8594;</span>
+
+    </div>
+
+    <div class="alltiles" id="clubs">
+      <!-- tile start here -->
+     
+       <!-- and ends here -->
+    </div>
+   
+  </div>
+
+  <div class="tilesdiv">
+    <div class="tiletag">
+      <h3>Vendors</h3>
+      <p>See More</p>
+      <span class="SeeMore">&#8594;</span>
+
+    </div>
+
+    <div class="alltiles" id="vendors">
+      <!-- tile start here -->
+     
+       <!-- and ends here -->
+    </div>
+   
+  </div>
+
+  <div class="tilesdiv">
+    <div class="tiletag">
+      <h3>UWI Facilites</h3>
+      <p>See More</p>
+      <span class="SeeMore">&#8594;</span>
+
+    </div>
+
+    <div class="alltiles" id="UWI">
+      <!-- tile start here -->
+     
+       <!-- and ends here -->
+    </div>
+
+    <div class="tilesdiv">
+      <div class="tiletag">
+        <h3>Others</h3>
+        <p>See More</p>
+        <span class="SeeMore">&#8594;</span>
+  
+      </div>
+  
+      <div class="alltiles" id="Others">
+        <!-- tile start here -->
+       
+         <!-- and ends here -->
+      </div>
+   
+  </div>
+
+  <div id="popup" class="popup">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <img id="popupimage" alt="Image" style="max-height: 60%;">
+    <h2 id="popupTitle">UCH</h2>
+    <a id="popupLink" href="#" target="_blank" style="color: white">The UWI Central HUB is the one place where you can find all things at UWI</a>
+    <p id="popupDescription">The UWI Central HUB is the one place where you can find all things at UWI</p>
+</div>
+
+</div>
+
+
+
+  <!-- The overlay -->
+  <div id="overlay" class="overlay" onclick="closePopup()"></div>
+
+  <footer>
+    <p>Made by the Pixel Perfect Pioneers</p>
+    <a href="index.html" style="color: white; margin-right: 10px;">Home</a>
+    <a href="signup.html" style="color: white">Add Profile</a>
+  </footer>
+
+</body>
+
+<script type="module">
+import { signIn, logout, auth, setAuthListeners } from './auth.js';
+
+let loginBtn = document.querySelector('#loginBtn');
+let logoutBtn = document.querySelector('#logoutBtn');
+let addProfile = document.querySelector('#addProfile');
+let getStarted = document.querySelector('#getStarted');
+
+function showToast(message) {
+    // Create a toast element
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.textContent = message;
+
+    // Apply styles for positioning at the top
+    toast.style.position = 'fixed';
+    toast.style.top = '20px'; // Adjust this value as needed
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.zIndex = '99999';
+
+    toast.style.animation = 'glow 1s ease-in-out infinite normal';
+
+    // Append toast to the body
+    document.body.appendChild(toast);
+
+    // Auto-hide the toast after a short delay
+    setTimeout(() => {
+        toast.remove();
+    }, 3000); // Adjust the delay (in milliseconds) as needed
+}
+
+function setLoggedInUI() {
+    showToast('Logged In!');
+    document.querySelector('#user').innerHTML = `Signed in Anonymously`;
+    document.querySelector('#loginBtn').style.display = 'none';
+    document.querySelector('#getStarted').style.display = 'none';
+    document.querySelector('#logoutBtn').style.display = 'inline-block';
+    document.querySelector('#addProfile').style.display = 'inline-block';
+}
+
+function setLoggedOutUI() {
+    showToast('Logged Out!');
+    document.querySelector('#user').innerHTML = '';
+    document.querySelector('#loginBtn').style.display = 'inline-block';
+    document.querySelector('#getStarted').style.display = 'inline-block';
+    document.querySelector('#logoutBtn').style.display = 'none';
+    document.querySelector('#addProfile').style.display = 'none';
+
+}
+
+// Attach listeners
+logoutBtn.addEventListener('click', logout);
+loginBtn.addEventListener('click', signIn);
+setAuthListeners(setLoggedInUI, setLoggedOutUI);
+
+loginBtn.addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent form submission
+  signIn();
+});
+
+getStarted.addEventListener('click', function() {
+    showToast('Please login first.');
+  });
+
+</script>
+
+<script>
+   function openPopup(clickedElement) {
+    // Retrieve data attributes from the clicked tile
+    var title = clickedElement.getAttribute("data-title");
+    var link = clickedElement.getAttribute("data-link");
+    var description = clickedElement.getAttribute("data-description");
+    var picture = clickedElement.getAttribute("data-image");
+    
+    // Populate the popup with data specific to the clicked tile
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popupTitle").innerText = title;
+    document.getElementById("popupLink").innerText = link;
+    document.getElementById("popupLink").href = link;
+    document.getElementById("popupDescription").innerText = description;
+    document.getElementById("popupimage").src = picture;
+    
+}
+
+  function closePopup() {
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+  }
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import { getFirestore, collection, getDoc, getDocs,addDoc} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import firebaseConfig from "./firebaseConfig.js";
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function getdata()
+{
+    console.log("Testing");
+    const tilesCollection = collection(db,'tilesdata'); 
+    const tilesDB = await getDocs(tilesCollection); 
+    const tilesList = tilesDB.docs.map(doc => doc.data()); 
+    return tilesList;
+}
+
+
+async function initialize() {
+    let array = await getdata();
+    content(array);
+    clubsandsocieties(array);
+    Vendors(array);
+    uwicontent(array);
+    othercontent(array);
+}
+
+initialize();
+
+function content(records) {
+    let result = document.querySelector('#recommended');
+    let html = '';
+    let x = 0;
+    for (let record of records) {
+        console.log(record); // Log the current record for debugging purposes
+
+        // Ensure that the block of code is enclosed within curly braces
+        html += `
+        <div class="tiles" data-title="${records[x].name}" data-description="${records[x].description}" data-image="${records[x].picture}" data-link="${records[x].link}" onclick="openPopup(this)">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img src="${records[x].picture}">
+
+            <div class="tilegradient"></div>
+
+            <div class="tiletxt">
+                <h3>${records[x].name}</h3>
+            </div>
+        </div>`;
+        x++
+      if (x >= 5) break;
+    }
+    result.innerHTML = html;
+}
+
+function clubsandsocieties(records)
+{
+    let result =document.querySelector('#clubs');
+    let html = '';
+    for(let record of records)
+    {
+        if(record.category == "clubs")
+        {
+          console.log(record.picture);
+            html+=`
+            <div class="tiles" data-title="${record.name}" data-description="${record.description}" data-image="${record.picture}" data-link="${record.link}" onclick="openPopup(this)">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img src="${record.picture}">
+
+            <div class="tilegradient"></div>
+
+            <div class="tiletxt">
+                <h3>${record.name}</h3>
+            </div>
+        </div>
+                `;
+        }
+            
+    }
+    result.innerHTML =html;
+}
+
+
+function Vendors(records)
+{
+    let result =document.querySelector('#vendors');
+    let html = '';
+    for(let record of records)
+    {
+        if(record.category == "vendor")
+        {
+            html+=`
+            <div class="tiles" data-title="${record.name}" data-description="${record.description}" data-image="${record.picture}" data-link="${record.link}" onclick="openPopup(this)">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img src="${record.picture}">
+
+            <div class="tilegradient"></div>
+
+            <div class="tiletxt">
+                <h3>${record.name}</h3>
+            </div>
+        </div>
+                `;
+        }
+            
+    }
+    result.innerHTML =html;
+}
+
+function uwicontent(records)
+{
+    let result =document.querySelector('#UWI');
+    let html = '';
+    for(let record of records)
+    {
+        if(record.category == "UWI")
+        {
+            html+=`
+            <div class="tiles" data-title="${record.name}" data-description="${record.description}" data-image="${record.picture}" data-link="${record.link}" onclick="openPopup(this)">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img src="${record.picture}">
+
+            <div class="tilegradient"></div>
+
+            <div class="tiletxt">
+                <h3>${record.name}</h3>
+            </div>
+        </div>
+                `;
+        }
+            
+    }
+    result.innerHTML = html;
+}
+
+function othercontent(records)
+{
+    let result =document.querySelector('#Others');
+    let html = '';
+    for(let record of records)
+    {
+        if(record.category == "other")
+        {
+            html+=`
+            <div class="tiles" data-title="${record.name}" data-description="${record.description}" data-image="${record.picture}" data-link="${record.link}" onclick="openPopup(this)">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img src="${record.picture}">
+
+            <div class="tilegradient"></div>
+
+            <div class="tiletxt">
+                <h3>${record.name}</h3>
+            </div>
+        </div>
+                `;
+        }
+            
+    }
+    result.innerHTML = html;
+}
+</script>
+</html>
